@@ -53,8 +53,8 @@ extern int example_test_fprintf(FILE * const file, const char *format, ...);
 #undef assert
 #endif // assert
 #define assert(expression) \
-    mock_assert((int)(expression), #expression, __FILE__, __LINE__)
-void mock_assert(const int result, const char* expression, const char *file,
+    mock_assert((unsigned long long)(expression), #expression, __FILE__, __LINE__)
+void mock_assert(const unsigned long long result, const char* expression, const char *file,
                  const int line);
 
 /* Redirect calloc and free to test_calloc() and test_free() so cmockery can

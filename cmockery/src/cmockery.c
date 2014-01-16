@@ -1208,12 +1208,12 @@ void _check_expected(
 
 
 // Replacement for assert.
-void mock_assert(const int result, const char* const expression,
+void mock_assert(const LargestIntegralType result, const char* const expression,
                  const char* const file, const int line) {
     if (!result) {
         if (global_expecting_assert) {
             global_last_failed_assert = expression;
-            longjmp(global_expect_assert_env, result);
+            longjmp(global_expect_assert_env, result != 0);
         } else {
             print_error("ASSERT: %s\n", expression);
             _fail(file, line);

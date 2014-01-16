@@ -426,7 +426,7 @@ void _check_expected(
 // Can be used to replace assert in tested code so that in conjuction with
 // check_assert() it's possible to determine whether an assert condition has
 // failed without stopping a test.
-void mock_assert(const int result, const char* const expression,
+void mock_assert(const LargestIntegralType result, const char* const expression,
                  const char * const file, const int line);
 
 void _will_return(const char * const function_name, const char * const file,
