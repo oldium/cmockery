@@ -1,4 +1,10 @@
 /*
+ * Forked cmockery project hosted at https://github.com/oldium/cmockery.git.
+ * Forked from cmockery hosted at http://code.google.com/p/cmockery.
+ *
+ * The sources has been changed, see the commit history on the repository
+ * above to see the original authors.
+ *
  * Copyright 2008 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
