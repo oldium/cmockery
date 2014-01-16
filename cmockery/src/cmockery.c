@@ -464,11 +464,11 @@ static void free_value(const void *value, void *cleanup_value_data) {
 static void free_symbol_map_value(const void *value,
                                   void *cleanup_value_data) {
     SymbolMapValue * const map_value = (SymbolMapValue*)value;
-    const unsigned int children = (unsigned int)cleanup_value_data;
+    const unsigned int children = (unsigned int)((char*)cleanup_value_data - (char*)NULL);
     assert_true(value);
     list_free(&map_value->symbol_values_list_head,
               children ? free_symbol_map_value : free_value,
-              (void*)(children - 1));
+              (char*)NULL + children - 1);
     free(map_value);
 }
 
@@ -1384,7 +1384,7 @@ void _test_free(void* const ptr, const char* file, const int line) {
     unsigned int i;
     char *block = (char*)ptr;
     MallocBlockInfo *block_info;
-    _assert_true((int)ptr, "ptr", file, line);
+    _assert_true(ptr != NULL, "ptr", file, line);
     block_info = (MallocBlockInfo*)(block - (MALLOC_GUARD_SIZE +
                                                sizeof(*block_info)));
     // Check the guard blocks.
@@ -1756,7 +1756,7 @@ int _run_tests(const UnitTest * const tests, const size_t number_of_tests) {
     if (number_of_test_states) {
         print_error("Mismatched number of setup %d and teardown %d "
                     "functions\n", setups, teardowns);
-        total_failed = -1;
+        total_failed = (size_t)-1;
     }
 
     free(test_states);
