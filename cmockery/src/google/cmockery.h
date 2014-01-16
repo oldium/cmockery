@@ -477,8 +477,14 @@ int _run_test(
 int _run_tests(const UnitTest * const tests, const size_t number_of_tests);
 
 // Standard output and error print methods.
-void print_message(const char* const format, ...);
-void print_error(const char* const format, ...);
+#ifdef __GNUC__
+#define attribute_format(...) __attribute__((format (__VA_ARGS__)))
+#else
+#define attribute_format(...)
+#endif
+
+void print_message(const char* const format, ...) attribute_format(printf, 1, 2);
+void print_error(const char* const format, ...) attribute_format(printf, 1, 2);
 void vprint_message(const char* const format, va_list args);
 void vprint_error(const char* const format, va_list args);
 
